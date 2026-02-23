@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu with Sidebar - Cozy Bistro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <nav class="bg-white shadow-sm">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <div>
+        <h1 class="text-2xl font-semibold">Cozy Bistro</h1>
+        <p class="text-sm text-slate-500">Modern comfort dining • 11 AM - 10 PM</p>
+      </div>
+      <a href="menu-index.html" class="text-sm font-medium text-slate-600 hover:text-slate-900">Back to featured menu</a>
+    </div>
+  </nav>
+
+  <main class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-8 lg:flex-row">
+    <aside class="w-full rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:w-64" aria-label="Sidebar">
+      <section>
+        <h2 class="text-lg font-semibold">Cuisine Categories</h2>
+        <div class="mt-4 space-y-2" id="category-buttons">
+          <button data-category="Italian" class="w-full rounded-xl border border-slate-200 px-4 py-2 text-left text-sm font-medium text-slate-700 transition hover:bg-slate-100">Italian</button>
+          <button data-category="Chinese" class="w-full rounded-xl border border-slate-200 px-4 py-2 text-left text-sm font-medium text-slate-700 transition hover:bg-slate-100">Chinese</button>
+          <button data-category="Indian" class="w-full rounded-xl border border-slate-200 px-4 py-2 text-left text-sm font-medium text-slate-700 transition hover:bg-slate-100">Indian</button>
+        </div>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-semibold">About</h2>
+        <p class="mt-3 text-sm text-slate-600">Cozy Bistro brings together global comfort dishes with fresh local ingredients. Our rotating menu celebrates seasonal flavors in a warm, welcoming space.</p>
+      </section>
+    </aside>
+
+    <section class="flex-1" aria-labelledby="menu-title">
+      <header>
+        <h2 id="menu-title" class="text-xl font-semibold">Featured Dishes</h2>
+        <p class="mt-1 text-sm text-slate-600" id="category-description">Select a cuisine to explore the menu.</p>
+      </header>
+
+      <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2" id="dish-grid"></div>
+
+      <article class="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm" id="detail-card" aria-live="polite">
+        <h3 class="text-lg font-semibold">Dish detail view</h3>
+        <p class="mt-2 text-sm text-slate-600">Click a dish card to reveal its full description.</p>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const menuData = {
+      Italian: {
+        description: "Bright Italian favorites inspired by coastal kitchens.",
+        dishes: [
+          {
+            name: "Herb Lemon Pasta",
+            image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=80",
+            description: "Silky linguine with lemon butter, basil, and parmesan."
+          },
+          {
+            name: "Smoky Garden Pizza",
+            image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=80",
+            description: "Wood-fired pizza topped with roasted vegetables."
+          },
+          {
+            name: "Rustic Tomato Bruschetta",
+            image: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=900&q=80",
+            description: "Crisp sourdough with marinated tomatoes and basil."
+          },
+          {
+            name: "Creamy Mushroom Risotto",
+            image: "https://images.unsplash.com/photo-1505576391880-b3f9d713dc4f?auto=format&fit=crop&w=900&q=80",
+            description: "Slow-simmered arborio rice finished with truffle oil."
+          }
+        ]
+      },
+      Chinese: {
+        description: "Comforting bowls inspired by classic Chinese flavors.",
+        dishes: [
+          {
+            name: "Ginger Scallion Noodles",
+            image: "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=900&q=80",
+            description: "Springy noodles with ginger oil and scallions."
+          },
+          {
+            name: "Maple Soy Tofu",
+            image: "https://images.unsplash.com/photo-1546069901-5ec6a79120b0?auto=format&fit=crop&w=900&q=80",
+            description: "Crisp tofu glazed with maple soy and sesame."
+          },
+          {
+            name: "Vegetable Dumplings",
+            image: "https://images.unsplash.com/photo-1521305916504-4a1121188589?auto=format&fit=crop&w=900&q=80",
+            description: "Steamed dumplings served with chili vinegar."
+          },
+          {
+            name: "Hot & Sour Soup",
+            image: "https://images.unsplash.com/photo-1542881603-58a0be06e90f?auto=format&fit=crop&w=900&q=80",
+            description: "A warming broth with mushrooms and tofu."
+          }
+        ]
+      },
+      Indian: {
+        description: "Aromatic Indian dishes layered with spices.",
+        dishes: [
+          {
+            name: "Saffron Rice Bowl",
+            image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80",
+            description: "Saffron rice with roasted vegetables and herbs."
+          },
+          {
+            name: "Spiced Chickpea Curry",
+            image: "https://images.unsplash.com/photo-1604908177225-6a4a89f6b68b?auto=format&fit=crop&w=900&q=80",
+            description: "Slow-cooked chickpeas with tomatoes and garam masala."
+          },
+          {
+            name: "Tandoori Cauliflower",
+            image: "https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=900&q=80",
+            description: "Charred cauliflower with yogurt spice marinade."
+          },
+          {
+            name: "Mango Lassi Parfait",
+            image: "https://images.unsplash.com/photo-1481391032119-d89fee407e44?auto=format&fit=crop&w=900&q=80",
+            description: "Creamy mango yogurt topped with pistachios."
+          }
+        ]
+      }
+    };
+
+    const dishGrid = document.getElementById("dish-grid");
+    const detailCard = document.getElementById("detail-card");
+    const categoryDescription = document.getElementById("category-description");
+    const categoryButtons = document.getElementById("category-buttons");
+
+    function renderCategory(category) {
+      const categoryData = menuData[category];
+      categoryDescription.textContent = categoryData.description;
+
+      [...categoryButtons.querySelectorAll("button")].forEach((button) => {
+        const isActive = button.dataset.category === category;
+        button.classList.toggle("bg-slate-900", isActive);
+        button.classList.toggle("text-white", isActive);
+        button.classList.toggle("border-slate-900", isActive);
+      });
+
+      dishGrid.innerHTML = "";
+      categoryData.dishes.forEach((dish) => {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "text-left rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg";
+        card.innerHTML = `
+          <img src="${dish.image}" alt="${dish.name}" class="h-40 w-full rounded-xl object-cover" />
+          <h3 class="mt-4 text-lg font-semibold">${dish.name}</h3>
+          <p class="text-sm text-slate-600">${dish.description}</p>
+        `;
+        card.addEventListener("click", () => {
+          detailCard.innerHTML = `
+            <h3 class="text-lg font-semibold">${dish.name}</h3>
+            <img src="${dish.image}" alt="${dish.name}" class="mt-4 h-56 w-full rounded-xl object-cover" />
+            <p class="mt-4 text-slate-700">${dish.description} Served with our chef's seasonal garnish and fresh herbs.</p>
+          `;
+        });
+        dishGrid.appendChild(card);
+      });
+    }
+
+    renderCategory("Italian");
+  </script>
+</body>
+</html>
