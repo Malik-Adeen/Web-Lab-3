@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - Cozy Market</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <header class="bg-white shadow-sm">
+    <div class="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
+      <h1 class="text-2xl font-semibold">Checkout</h1>
+      <nav class="text-sm text-slate-600">
+        <a href="cart.html" class="hover:text-slate-900">Back to Cart</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-4xl px-6 py-10">
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <form id="checkout-form" class="space-y-6" novalidate>
+        <div>
+          <label for="full-name" class="text-sm font-medium">Full Name</label>
+          <input id="full-name" name="full-name" type="text" required class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-2" placeholder="Jane Doe" />
+        </div>
+        <div>
+          <label for="address" class="text-sm font-medium">Address</label>
+          <textarea id="address" name="address" rows="3" required class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-2" placeholder="123 Market Street, City"></textarea>
+        </div>
+        <div>
+          <label for="payment" class="text-sm font-medium">Payment Method</label>
+          <select id="payment" name="payment" required class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-2">
+            <option value="">Select a payment method</option>
+            <option value="card">Credit/Debit Card</option>
+            <option value="cash">Cash on Delivery</option>
+            <option value="wallet">Mobile Wallet</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white">Place Order</button>
+      </form>
+
+      <div id="confirmation" class="mt-6 hidden rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700"></div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("checkout-form");
+    const confirmation = document.getElementById("confirmation");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      localStorage.setItem("cartItems", JSON.stringify([]));
+      confirmation.textContent = "Thank you! Your order has been placed and will be prepared shortly.";
+      confirmation.classList.remove("hidden");
+      form.reset();
+    });
+  </script>
+</body>
+</html>
